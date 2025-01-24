@@ -20,7 +20,7 @@ const permit = new Permit({
   // in production, you might need to change this url to fit your deployment
   pdp: 'https://cloudpdp.api.permit.io',
   // your secret API Key
-  token: process.env.NEXT_PUBLIC_PERMIT_API_KEY
+  token: process.env.NEXT_PUBLIC_PERMIT_API_KEY,
 });
 
 // You can open http://localhost:4000 to invoke this http
@@ -28,10 +28,10 @@ const permit = new Permit({
 app.get("/", async (req, res) => {
   try {
     const user = {
-      id: '1',
-      firstName: 'Franklin',
-      lastName: 'Lawrence',
-      email: 'lawrencefranklin100@gmail.com',
+      id: '2',
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'johndoe@gmail.com',
     };
 
     const permitted = await permit.check(user.id, 'edit', 'event'); // Use user.id
@@ -47,6 +47,8 @@ app.get("/", async (req, res) => {
     res.status(500).json({ error: "An error occurred during permission check." }); // Send a 500 error
   }
 });
+
+console.log('amen')
 
 
 app.listen(port, () => {
