@@ -42,50 +42,50 @@ export default function EventBookingApp() {
     },
   ];
 
-  // useEffect(() => {
-  //   const fetchEvents = async () => {
-  //     try {
-  //       const response = await fetch("YOUR_HASURA_GRAPHQL_ENDPOINT", {
-  //         // Replace with your Hasura endpoint
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           "x-hasura-admin-secret": "YOUR_HASURA_ADMIN_SECRET", // Only use this if you want to bypass authorization, NOT RECOMMENDED FOR PRODUCTION
-  //         },
-  //         body: JSON.stringify({
-  //           query: `
-  //             query MyQuery {
-  //               events {
-  //                 id
-  //                 name
-  //                 location
-  //                 date
-  //                 venue
-  //               }
-  //             }
-  //           `,
-  //         }),
-  //       });
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("YOUR_HASURA_GRAPHQL_ENDPOINT", {
+          // Replace with your Hasura endpoint
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-hasura-admin-secret": "YOUR_HASURA_ADMIN_SECRET", // Only use this if you want to bypass authorization, NOT RECOMMENDED FOR PRODUCTION
+          },
+          body: JSON.stringify({
+            query: `
+              query MyQuery {
+                events {
+                  id
+                  name
+                  location
+                  date
+                  venue
+                }
+              }
+            `,
+          }),
+        });
 
-  //       if (!response.ok) {
-  //         const errorData = await response.json();
-  //         throw new Error(
-  //           `HTTP error! status: ${response.status} message: ${errorData.errors[0].message}`
-  //         );
-  //       }
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            `HTTP error! status: ${response.status} message: ${errorData.errors[0].message}`
+          );
+        }
 
-  //       const data = await response.json();
-  //       setEvents(data.data.events);
-  //     } catch (err: any) {
-  //       console.log(err.message);
-  //     } finally {
-  //       // setLoading(false);
-  //       console.log("data fetched");
-  //     }
-  //   };
+        const data = await response.json();
+        setEvents(data.data.events);
+      } catch (err: any) {
+        console.log(err.message);
+      } finally {
+        // setLoading(false);
+        console.log("data fetched");
+      }
+    };
 
-  //   fetchEvents();
-  // }, []);
+    fetchEvents();
+  }, []);
 
   const [isAddEventOpen, setIsAddEventOpen] = useState(false);
 
@@ -113,7 +113,7 @@ export default function EventBookingApp() {
         </CardContent>
       </Card>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {event.map((event) => (
+        {events?.map((event) => (
           <EventCard
             key={event.id}
             event={event}

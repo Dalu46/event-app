@@ -100,7 +100,11 @@ export function EventCard({ event, onVenueChange }: EventCardProps) {
           </Button>
         )}
         {permittedMessage ? (
-          <p className="font-bold text-red-600 ml-8">{permittedMessage}</p>
+          permitted ? (
+            <p className="font-bold text-green-600 ml-8">{permittedMessage}</p>
+          ) : (
+            <p className="font-bold text-red-600 ml-8">{permittedMessage}</p>
+          )
         ) : null}
       </CardFooter>
     </Card>
